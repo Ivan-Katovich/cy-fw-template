@@ -7,8 +7,8 @@ const cypress = require('cypress');
             mochaFile: 'report/report.xml',
             toConsole: false
         },
-        headed: true,
-        exit: false,
+        headed: process.env.npm_config_headed === 'true',
+        exit: process.env.npm_config_stay === undefined,
         browser: 'chrome',
         spec: './src/test/**/*.spec.js',
         configFile: false,

@@ -2,9 +2,9 @@ const BaseUi = require('../baseUi');
 
 class ArticleBoard extends BaseUi {
 
-    get container() {return cy.get('.main-content-article')};
+    get container() {return cy.get('.theme-doc-markdown')};
 
-    get mainTitle() {return this.container.find('.main-content-title')};
+    get mainTitle() {return this.container.find('[class*="headerWrapper"]')};
 }
 
 module.exports = ArticleBoard;

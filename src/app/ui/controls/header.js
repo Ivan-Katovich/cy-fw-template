@@ -4,9 +4,9 @@ class Header extends BaseUi {
 
     name = 'Header';
 
-    get container() {return cy.get('nav.w-full')};
+    get container() {return cy.get('.navbar__items')};
 
-    get menuItems() {return this.container.find('a.text-md')}
+    get menuItems() {return this.container.find('.navbar__item')}
 
     // Methods
     navigate(item) {

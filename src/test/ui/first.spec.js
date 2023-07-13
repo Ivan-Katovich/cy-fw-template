@@ -1,9 +1,9 @@
 const app = require('../../app/app');
 
 describe('My First Test', () => {
-    it('Does not do much! passed ', () => {
+    it('Classic CY pattern', () => {
         cy.visit('/guides/overview/why-cypress');
-        cy.get('.main-content-title')
+        cy.get('[class*="headerWrapper"]')
             .should('contain.text', 'Why Cypress?');
         cy.request('GET', 'https://docs.cypress.io/')
             .then((resp) => {
@@ -18,7 +18,7 @@ describe('My First Test', () => {
                 expect(timeout).to.eq(1000);
             })
     })
-    it('Does not do much! failed', () => {
+    it('Own made Object Model', () => {
         app.ui.visit('/guides/overview/why-cypress');
         app.ui.article.get('mainTitle')
             .should('contain.text', 'Why Cypress?');
@@ -31,6 +31,6 @@ describe('My First Test', () => {
             });
         app.ui.header.navigate('Plugins')
             .url()
-            .should('include', '/plugins/directory');
+            .should('include', '/plugins');
     })
 })
