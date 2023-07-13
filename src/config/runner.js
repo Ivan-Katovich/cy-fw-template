@@ -8,7 +8,7 @@ const cypress = require('cypress');
             toConsole: false
         },
         headed: process.env.npm_config_headed === 'true',
-        exit: process.env.npm_config_stay === undefined,
+        exit: process.env.npm_config_stay !== 'true',
         browser: 'chrome',
         spec: './src/test/**/*.spec.js',
         configFile: false,
