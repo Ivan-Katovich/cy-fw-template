@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        NO_COLOR = 1
+    }
     options {
         buildDiscarder(logRotator(daysToKeepStr: '10', numToKeepStr: '10'))
         timeout(time: 12, unit: 'HOURS')
