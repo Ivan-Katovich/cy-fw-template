@@ -8,7 +8,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // the algorithm script creates a file named report.txt
+                sh('npm install')
+            }
+        }
+        stage('Test') {
+            steps {
                 sh('npm test')
             }
         }
