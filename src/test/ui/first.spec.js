@@ -13,10 +13,10 @@ describe('My First Test', () => {
             .then((timeout) => {
                 expect(timeout).to.eq(2000);
             })
-        //     .then(() => app.sleep(1000))
-        //     .then((timeout) => {
-        //         expect(timeout).to.eq(1000);
-        //     })
+            .then(() => app.sleep(1000))
+            .then((timeout) => {
+                expect(timeout).to.eq(1000);
+            })
     })
     it('Own made Object Model', () => {
         app.ui.visit('/guides/overview/why-cypress');

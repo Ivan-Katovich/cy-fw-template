@@ -22,7 +22,7 @@ class Base {
     }
 
     sleep(timeout) {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(timeout);
             }, timeout)
