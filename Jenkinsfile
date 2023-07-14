@@ -10,6 +10,8 @@ pipeline {
             steps {
                 sh('npm install')
             }
+        }
+        stage('Update Browsers') {
             steps {
                 sh('npx browserslist@latest --update-db')
             }
