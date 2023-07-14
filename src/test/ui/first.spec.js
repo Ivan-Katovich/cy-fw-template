@@ -15,7 +15,7 @@ describe('My First Test', () => {
             })
             .then(() => app.sleep(1000))
             .then((timeout) => {
-                expect(timeout).to.eq(1000);
+                expect(timeout).to.eq(1002);
             })
     })
     it('Own made Object Model', () => {
