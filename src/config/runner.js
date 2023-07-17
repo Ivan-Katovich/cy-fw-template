@@ -2,10 +2,12 @@ const cypress = require('cypress');
 
 (async () => {
     const results = await cypress.run({
-        reporter: 'junit',
+        reporter: 'mochawesome',
         reporterOptions: {
-            mochaFile: 'report/report.xml',
-            toConsole: false
+            reportDir: 'report/mochawesome',
+            overwrite: true,
+            html: true,
+            json: true,
         },
         headed: process.env.npm_config_headed === 'true',
         exit: process.env.npm_config_stay !== 'true',
