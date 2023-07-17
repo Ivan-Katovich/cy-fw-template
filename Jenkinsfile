@@ -1,7 +1,7 @@
 pipeline {
 //     agent any
     agent {
-        docker { image 'ubuntu:latest' }
+        docker { image 'node:latest' }
     }
     environment {
         NO_COLOR = 1
