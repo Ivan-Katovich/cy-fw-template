@@ -28,18 +28,13 @@ pipeline {
     }
     post {
         always {
-            publishHTML(
-                target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: false,
-                    reportDir: 'report/mochawesome',
-                    reportFiles: 'mochawesome.html',
-                    reportName: 'My Reports',
-                    reportTitles: 'The Report',
-                    useWrapperFileDirectly: true
-                ]
-            )
+            publishHTML (target : [allowMissing: false,
+             alwaysLinkToLastBuild: true,
+             keepAll: true,
+             reportDir: 'report/mochawesome',
+             reportFiles: 'mochawesome.html',
+             reportName: 'My Reports',
+             reportTitles: 'The Report'])
         }
     }
 }
