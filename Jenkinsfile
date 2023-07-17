@@ -1,7 +1,7 @@
 pipeline {
 //     agent any
     agent {
-        docker { image 'node:latest' }
+        docker { image 'arpanpal010/alpine-node:armhf' }
     }
     environment {
         NO_COLOR = 1
