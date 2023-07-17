@@ -1,5 +1,8 @@
 pipeline {
-    agent any
+//     agent any
+    agent {
+        docker { image 'public.ecr.aws/l1h7o1b3/cypress-base:latest' }
+    }
     environment {
         NO_COLOR = 1
     }
@@ -28,6 +31,7 @@ pipeline {
     }
     post {
         always {
+            // Have to add through Manage Jenkins” -> “Script console such command: System.setProperty('hudson.model.DirectoryBrowserSupport.CSP', '')
             publishHTML (target : [allowMissing: false,
              alwaysLinkToLastBuild: true,
              keepAll: true,
