@@ -33,8 +33,8 @@ pipeline {
              keepAll: true,
              reportDir: 'report/mochawesome',
              reportFiles: 'mochawesome.html',
-             reportName: 'My Reports',
-             reportTitles: 'The Report'])
+             reportName: 'HTML Report',
+             reportTitles: 'Report ${env.BUILD_NUMBER}'])
         }
     }
 }
