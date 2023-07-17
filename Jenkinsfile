@@ -1,7 +1,7 @@
 pipeline {
 //     agent any
     agent {
-        docker { image 'public.ecr.aws/l1h7o1b3/cypress-base:latest' }
+        docker { image 'ubuntu:latest' }
     }
     environment {
         NO_COLOR = 1
