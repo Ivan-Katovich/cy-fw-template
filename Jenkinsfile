@@ -26,4 +26,20 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            publishHTML(
+                [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: false,
+                    reportDir: 'report/mochawesome',
+                    reportFiles: 'mochawesome.html',
+                    reportName: 'CY Report',
+                    reportTitles: 'cyreport',
+                    useWrapperFileDirectly: true
+                ]
+            )
+        }
+    }
 }
