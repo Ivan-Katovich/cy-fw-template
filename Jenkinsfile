@@ -1,7 +1,7 @@
 pipeline {
 //     agent any
     agent {
-        docker { image 'arpanpal010/alpine-node:armhf' }
+        docker { image 'node:latest' }
     }
     environment {
         NO_COLOR = 1
@@ -13,6 +13,12 @@ pipeline {
         ansiColor("xterm")
     }
     stages {
+        stage("Install npm") {
+            steps {
+                sh("sudo apt install npm")
+                sh("npm –version")
+            }
+        }
         stage("Build") {
             steps {
                 sh("npm install")
