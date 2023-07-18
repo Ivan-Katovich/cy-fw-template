@@ -1,8 +1,8 @@
 pipeline {
-//     agent any
-    agent {
-        docker { image 'paketobuildpacks/npm-install:latest' }
-    }
+    agent any
+//     agent {
+//         docker { label 'linux' }
+//     }
     environment {
         NO_COLOR = 1
     }
