@@ -1,7 +1,7 @@
 pipeline {
 //     agent any
     agent {
-        docker { image 'node:latest' }
+        docker { image 'dockette/nodejs:latest' }
     }
     environment {
         NO_COLOR = 1
@@ -13,12 +13,6 @@ pipeline {
         ansiColor("xterm")
     }
     stages {
-        stage("Install npm") {
-            steps {
-                sh("apk add --update npm")
-                sh("npm –version")
-            }
-        }
         stage("Build") {
             steps {
                 sh("npm install")
