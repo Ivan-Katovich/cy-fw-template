@@ -1,7 +1,7 @@
 pipeline {
 //     agent any
     agent {
-        docker { image 'dockette/nodejs:latest' }
+        docker { image 'paketobuildpacks/npm-install:latest' }
     }
     environment {
         NO_COLOR = 1
