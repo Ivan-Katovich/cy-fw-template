@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage("Install npm") {
             steps {
-                sh("sudo apt install npm")
+                sh("apk add --update npm")
                 sh("npm –version")
             }
         }
