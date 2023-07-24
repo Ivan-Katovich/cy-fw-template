@@ -19,3 +19,9 @@ jobs:
 
       - name: Run Tests
         run: npm test
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: report
+          path: ./report/mochawesome
