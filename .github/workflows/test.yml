@@ -1,0 +1,21 @@
+name: Cy Test
+
+on: [push]
+
+env:
+  ARTIFACT_NAME: report
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
