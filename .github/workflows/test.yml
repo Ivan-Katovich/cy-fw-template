@@ -25,7 +25,7 @@ jobs:
         with:
           name: ${{env.ARTIFACT_NAME}}
           path: ./report/mochawesome
-          
+
   use-artifacts:
     name: Use Artifacts
     runs-on: ubuntu-latest
@@ -36,7 +36,8 @@ jobs:
         uses: actions/download-artifact@v1.0.0
         with:
           name: ${{env.ARTIFACT_NAME}}
-          
+
+      # HTML Preview doesn't work for me
       - name: HTML Preview
         # You may pin to the exact commit or the version.
         # uses: pavi2410/html-preview-action@9420cd81fbbe0035f59a39536ea5a0443daffa37
@@ -44,7 +45,7 @@ jobs:
         with:
           # The HTML file you want to preview, relative to the root of the repo
           html_file: "${{env.ARTIFACT_NAME}}/mochawesome.html"
-        
+
       - name: Check files
         run: |
           cd ${{env.ARTIFACT_NAME}}
