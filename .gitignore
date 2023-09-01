@@ -38,7 +38,9 @@ debug.log
 
 # code unrelated folders
 /tmp
-/report
+/report/mochawesome
+/report/screenshots
+/report/report.xml
 /test.js
 
 # secrets

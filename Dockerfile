@@ -7,10 +7,11 @@ RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd6
 RUN dpkg -i google-chrome-stable_current_amd64.deb; exit 0
 RUN apt -f install -y
 COPY package.json /fw/package.json
+COPY package-lock.json /fw/package-lock.json
 WORKDIR /fw
 RUN npm install
 WORKDIR /
-COPY . /fw
+COPY src /fw/src
 WORKDIR /fw
 RUN ./node_modules/.bin/cypress install
 
