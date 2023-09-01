@@ -1,0 +1,6 @@
+version: "3.9"
+
+services:
+  cy-test:
+    environment:
+      - npm_config_env=DEV  #docker compose --profile test -f docker-compose.yaml -f docker-compose.dev.yaml up   to run merged compose files

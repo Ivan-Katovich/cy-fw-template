@@ -1,5 +1,6 @@
 FROM node:latest
 LABEL maintainer="Ivan Kotovich"
+ENV npm_config_env PROD
 RUN apt-get -y update
 RUN apt-get -y install wget
 RUN apt-get -y install xvfb

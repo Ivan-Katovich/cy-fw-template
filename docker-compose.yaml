@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  cy-test:  # cy-fw-template-cy-test full name of the image
+    build: .
+    volumes:
+      - cy-volume:/fw/report/mochawesome
+    environment:
+      - npm_config_env=TEST
+    profiles:
+      - test  #docker compose --profile test up    to run just test profile
+  cy-report:
+    build: report/.
+    ports:
+      - "1234:1234"
+#    depends_on:
+#      - cy-test  # makes a queue from containers
+    volumes:
+      - cy-volume:/report/mochawesome
+    profiles:
+      - report
+volumes:
+  cy-volume:

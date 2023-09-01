@@ -1,5 +1,7 @@
 const cypress = require('cypress');
 
+console.log(`The environment is: "${process.env.npm_config_env}"`);
+
 (async () => {
     const results = await cypress.run({
         reporter: 'mochawesome',
