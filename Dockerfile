@@ -17,3 +17,5 @@ WORKDIR /fw
 RUN ./node_modules/.bin/cypress install
 
 ENTRYPOINT ["npm", "test"]
+# docker build -t cy-test .   to build the image
+# docker run --rm -v cy-volume:/fw/report/mochawesome cy-test   to ran with volume for report
