@@ -103,6 +103,6 @@ spec:
       persistentVolumeClaim:
         claimName: test-pv-claim
 
-# kubectl delete -f pod-report.yaml  (to delete the deployment)
+# kubectl delete -f multitask-all.yaml  (to delete the deployment)
 # stop tunnel
 # minikube delete
