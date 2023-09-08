@@ -1,0 +1,61 @@
+---
+## DEPRECATED Runs but stops after some time (don't know why)
+# minikube start
+# minikube tunnel   (in separated terminal)
+# kubectl apply -f namespace.yaml
+# kubectl apply -f service.yaml
+# minikube image load cy-test    (to load image from local docker images)
+# minikube image load cy-report    (to load image from local docker images)
+# kubectl apply -f deployment-test.yaml
+# kubectl delete -f deployment-test.yaml  (to delete the deployment)
+# kubectl exec -it cy-deployment-7596b9f7cb-xw2mh --container cy-report-container -n test -- /bin/bash   (connect to running report container)
+# kubectl -n test logs -f cy-deployment-5777698dfb-zhqhm --container cy-report-container    (to watch logs)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cy-deployment
+  namespace: test
+  labels:
+    app: cy-action
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cy-action
+  template:
+    metadata:
+      labels:
+        app: cy-action
+    spec:
+#      restartPolicy: OnFailure
+      containers:
+        - name: cy-test-container
+          image: cy-test:latest
+          imagePullPolicy: Never
+          env:
+            - name: npm_config_env
+              value: 'STAGE'
+          volumeMounts:
+            - mountPath: /fw/report/mochawesome
+              name: cy-volume
+        - name: cy-report-container
+          image: cy-report:latest
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 1234
+          volumeMounts:
+            - mountPath: /report/mochawesome
+              name: cy-volume
+      volumes:
+        - name: cy-volume
+          hostPath:
+            path: /study/kube/cy/test
+#          emptyDir:
+#            sizeLimit: 50Mi

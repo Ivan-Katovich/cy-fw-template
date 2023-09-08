@@ -1,0 +1,108 @@
+# minikube start
+# minikube tunnel (separated terminal)
+# minikube image load cy-test    (to load image from local docker images)
+# minikube image load cy-report    (to load image from local docker images)
+# kubectl apply -f multitask-all.yaml
+---
+apiVersion: v1 # Creates namespace if not - default namespace
+kind: Namespace
+metadata:
+  name: test
+---
+apiVersion: v1 # Creates service to provide app out of the claster
+kind: Service
+metadata:
+  name: test-service
+  namespace: test
+spec:
+  selector:
+    app: cy-action
+  ports:
+    - port: 1234
+      targetPort: 1234
+  type: LoadBalancer
+---
+apiVersion: v1  # Creates a persistent volume for data sharing
+kind: PersistentVolume
+metadata:
+  name: test-pv
+  namespace: test
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /study/kube/cy/test
+---
+apiVersion: v1  # Creates persistent volume claim for persistent volume
+kind: PersistentVolumeClaim
+metadata:
+  name: test-pv-claim
+  namespace: test
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300Mi
+---
+apiVersion: batch/v1  # Creates job to run tests once or more   (backoffLimit: 1)
+kind: Job
+metadata:
+  name: cy-test-job
+  namespace: test
+  labels:
+    app: cy-action
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        app: cy-action
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: cy-test-container
+          image: cy-test:latest
+          imagePullPolicy: Never
+          env:
+            - name: npm_config_env
+              value: 'STAGE'
+          volumeMounts:
+            - mountPath: /fw/report/mochawesome
+              name: cy-volume
+      volumes:
+        - name: cy-volume
+          persistentVolumeClaim:
+            claimName: test-pv-claim
+---
+apiVersion: v1  # Creates a Pod to run container with test reports
+kind: Pod
+metadata:
+  name: cy-report-pod
+  namespace: test
+  labels:
+    app: cy-action
+spec:
+  containers:
+    - name: cy-report-container
+      image: cy-report:latest
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 1234
+      volumeMounts:
+        - mountPath: /report/mochawesome
+          name: cy-volume
+  volumes:
+    - name: cy-volume
+      persistentVolumeClaim:
+        claimName: test-pv-claim
+
+# kubectl delete -f pod-report.yaml  (to delete the deployment)
+# stop tunnel
+# minikube delete

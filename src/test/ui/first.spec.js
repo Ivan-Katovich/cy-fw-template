@@ -1,6 +1,6 @@
 const app = require('../../app/app');
 
-describe('My First Test', () => {
+describe(`My First Test for env: "${Cypress.env('npm_config_env')}"`, () => {
     it('Classic CY pattern', () => {
         cy.visit('/guides/overview/why-cypress');
         cy.get('[class*="headerWrapper"]')

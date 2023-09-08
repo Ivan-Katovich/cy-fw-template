@@ -1,0 +1,16 @@
+---
+# minikube start
+# minikube tunnel  in separated terminal
+# kubectl apply -f service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-service
+  namespace: test
+spec:
+  selector:
+    app: cy-action
+  ports:
+    - port: 1234
+      targetPort: 1234
+  type: LoadBalancer

@@ -30,6 +30,7 @@ console.log(`The environment is: "${process.env.npm_config_env}"`);
             viewportWidth: 1280
         },
         env: {
+            npm_config_env: process.env.npm_config_env,
             login_url: '/login',
             products_url: '/products',
         },

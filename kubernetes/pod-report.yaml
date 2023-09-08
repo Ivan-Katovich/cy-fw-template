@@ -1,0 +1,34 @@
+---
+# minikube start
+# minikube tunnel (separated terminal)
+# kubectl apply -f namespace.yaml
+# kubectl apply -f service.yaml
+# kubectl apply -f persistentVolume.yaml
+# kubectl apply -f persistentVolumeClaim.yaml
+# minikube image load cy-test    (to load image from local docker images)
+# minikube image load cy-report    (to load image from local docker images)
+# kubectl apply -f pod-report.yaml
+# kubectl delete -f pod-report.yaml  (to delete the deployment)
+# kubectl exec -it cy-report-pod-68bf978cc8-xbrs5 -n test -- /bin/bash   (connect to running container)
+# kubectl -n test logs -f cy-report-pod-5777698dfb-zhqhm    (to watch logs)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cy-report-pod
+  namespace: test
+  labels:
+    app: cy-action
+spec:
+  containers:
+    - name: cy-report-container
+      image: cy-report:latest
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 1234
+      volumeMounts:
+        - mountPath: /report/mochawesome
+          name: cy-volume
+  volumes:
+    - name: cy-volume
+      persistentVolumeClaim:
+        claimName: test-pv-claim

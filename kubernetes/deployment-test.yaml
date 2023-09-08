@@ -1,0 +1,40 @@
+---
+## DEPRECATED
+# minikube start
+# kubectl apply -f namespace.yaml
+# minikube image load cy-test    (to load image from local docker images)
+# kubectl apply -f deployment-test.yaml
+# kubectl delete -f deployment-test.yaml  (to delete the deployment)
+# kubectl exec -it cy-test-deployment-68bf978cc8-xbrs5 -n test -- /bin/bash   (connect to running container)
+# kubectl -n test logs -f cy-deployment-5777698dfb-zhqhm --container cy-report-container    (to watch logs)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cy-test-deployment
+  namespace: test
+  labels:
+    app: cy-action
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cy-action
+  template:
+    metadata:
+      labels:
+        app: cy-action
+    spec:
+      containers:
+        - name: cy-test-container
+          image: cy-test:latest
+          imagePullPolicy: Never
+          env:
+            - name: npm_config_env
+              value: 'STAGE'
+          volumeMounts:
+            - mountPath: /fw/report/mochawesome
+              name: cy-volume
+      volumes:
+        - name: cy-volume
+          hostPath:
+            path: /study/kube/cy/test

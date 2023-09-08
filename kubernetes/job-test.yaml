@@ -1,0 +1,55 @@
+---
+# minikube start
+# kubectl apply -f namespace.yaml
+# kubectl apply -f persistentVolume.yaml
+# kubectl apply -f persistentVolumeClaim.yaml
+# minikube image load cy-test    (to load image from local docker images)
+# kubectl apply -f job-test.yaml
+# kubectl exec -it cy-test-deployment-68bf978cc8-xbrs5 -n test -- /bin/bash   (connect to running container)
+# kubectl -n test logs -f cy-deployment-5777698dfb-zhqhm --container cy-report-container    (to watch logs)
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cy-test-job
+  namespace: test
+  labels:
+    app: cy-action
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        app: cy-action
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: cy-test-container
+          image: cy-test:latest
+          imagePullPolicy: Never
+          env:
+            - name: npm_config_env
+              value: 'STAGE'
+          volumeMounts:
+            - mountPath: /fw/report/mochawesome
+              name: cy-volume
+#          securityContext:   # error when security added
+#            allowPrivilegeEscalation: false
+#            runAsNonRoot: true
+#            capabilities:
+#              drop:
+#                - ALL
+#            readOnlyRootFilesystem: true
+      volumes:
+        - name: cy-volume
+          persistentVolumeClaim:
+            claimName: test-pv-claim
+#      volumes:
+#        - name: cy-volume
+#          hostPath:
+#            path: /study/kube/cy/test
+
+# kubectl delete -f job-test.yaml  (to delete the deployment)
+# kubectl delete -f namespace.yaml
+# kubectl delete -f persistentVolume.yaml
+# kubectl delete -f persistentVolumeClaim.yaml
+# minikube delete
