@@ -1,3 +1,4 @@
+name: Check logic else
 on:
   workflow_dispatch:
     inputs:
@@ -15,4 +16,5 @@ jobs:
       MODE: ${{ github.event.inputs.mode || 'auto' }}
     steps:
       - name: Print mode
-        run: echo "Mode: ${{env.MODE}}"
+        run: |
+          echo Mode: ${{env.MODE}}
