@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Режим"
+        required: true
+        default: "manual"
+  schedule:
+    - cron: '*/30 * * * *'
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+    env:
+      MODE: ${{ github.event.inputs.mode || 'auto' }}
+    steps:
+      - name: Print mode
+        run: echo "Mode: ${{env.MODE}}"
